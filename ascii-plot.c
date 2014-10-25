@@ -102,21 +102,16 @@ int DrawGraph(const int   columns,
 		return ERROR;
 	}
 	rowHeight = (yBounds[1] - yBounds[0]) / ((double) rows - 1);
-	/*fprintf(stderr, "DEBUG: Row height %f\n", rowHeight);*/
 	columnWidth = (xBounds[1] - xBounds[0]) / ((double) columns - 1);
-	/*fprintf(stderr, "DEBUG: Column width %f\n", columnWidth);
-	fprintf(stderr, "DEBUG: %d points\n", points);*/
 	for (i = 0; i < points; ++i) {
 		if (!(fscanf(inputFile, " %lg", &currentDat[0]) && fscanf(inputFile, " %lg", &currentDat[1]))) {
 			fprintf(stderr, "Failed processing line %d of the file.\n", i);
 			free(toWrite);
 			return ERROR;
 		}
-		/*fprintf(stderr, "DEBUG: Read point %f %f\n", (float) currentDat[0], (float) currentDat[1]);*/
 		currentX = (int) ((currentDat[0] - xBounds[0]) / columnWidth);
 		assert((currentX >= 0) && (currentX < columns));
 		currentY = (int) ((currentDat[1] - yBounds[0]) / rowHeight);
-		/*fprintf(stderr, "DEBUG: Writing point %d %d\n", currentX, currentY);*/
 		currentY = rows - currentY - 1;
 		assert((currentY >= 0) && (currentY < rows));
 		toWrite[currentX + currentY * columns] = PLOT_CHAR;
